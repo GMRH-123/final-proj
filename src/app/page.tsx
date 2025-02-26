@@ -1,12 +1,20 @@
 import { SignedIn, SignedOut } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
+import { eq } from "drizzle-orm";
 import Link from "next/link";
 import { db } from "~/server/db";
 
 export const dynamic = "force-dynamic";
 
 async function Images() {
+  const user = await  auth();
+
+  
+  // If you throw, the user will not be able to upload
+  if (!user.userId) throw new Error("Unauthorized");
   
   const images = await db.query.images.findMany({
+    where: (model) => eq(model.userId, user.userId),
     orderBy: (model, { desc }) =>  desc(model.id),
   });
 
