@@ -3,24 +3,16 @@ import { auth } from "@clerk/nextjs/server";
 import { eq } from "drizzle-orm";
 import Link from "next/link";
 import { db } from "~/server/db";
+import { getMyImages } from "~/server/queries";
 
 export const dynamic = "force-dynamic";
 
 async function Images() {
-  const user = await  auth();
-
-  
-  // If you throw, the user will not be able to upload
-  if (!user.userId) throw new Error("Unauthorized");
-  
-  const images = await db.query.images.findMany({
-    where: (model) => eq(model.userId, user.userId),
-    orderBy: (model, { desc }) =>  desc(model.id),
-  });
+  const images =  await getMyImages();
 
   return(
     
-    <div className="flex flex-wrap gap-4">
+    <div className="flex flex-wrap justify-items-center gap-4">
       {images.map((image) => (
         <div key={image.id} className="w-48">
           <img src={image.url} />
