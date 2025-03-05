@@ -57,4 +57,4 @@ const config =  withSentryConfig(coreConfig, {
     automaticVercelMonitors: true,
   });
 
-export default coreConfig;
+export default config;
