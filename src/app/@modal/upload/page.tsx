@@ -17,15 +17,18 @@ export default function UploadModal() {
       alert("Please select a file to upload.");
       return;
     }
-
+  
     try {
       const uploadedFiles = await startUpload(files);
       if (uploadedFiles) {
         console.log("Uploaded files:", uploadedFiles);
         alert("Upload successful!");
-
+  
         // Close the modal and return to the previous page
         router.back();
+  
+        // Refresh the page to load the new image
+        router.refresh();
       }
     } catch (error) {
       console.error("Upload failed:", error);
