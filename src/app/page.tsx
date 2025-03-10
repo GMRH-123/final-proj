@@ -18,7 +18,7 @@ async function Images() {
         <div key={image.id} className="flex h-48 w-48 flex-col">
           <Link href={`img/${image.id}`}>
           
-            <Image 
+            <img 
             src={image.url} 
             style={{objectFit: "contain"}} 
             width={192} 
