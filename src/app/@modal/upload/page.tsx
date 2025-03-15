@@ -1,3 +1,5 @@
+// src/app/@modal/upload/page.tsx
+
 "use client";
 
 import { useState } from "react";
@@ -8,18 +10,51 @@ import { useRouter } from "next/navigation";
 export default function UploadModal() {
   const [caption, setCaption] = useState("");
   const [files, setFiles] = useState<File[]>([]);
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null); // For image preview
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const router = useRouter();
 
   const { startUpload, isUploading } = useUploadThing("imageUploader", {
-    onClientUploadComplete: () => {
-      // Close the modal first
-      router.back();
+    onClientUploadComplete: async (uploadedFiles) => {
+      console.log("onClientUploadComplete triggered");
+      if (!uploadedFiles || uploadedFiles.length === 0) {
+        console.error("No uploaded file found.");
+        return;
+      }
+      const fileData = uploadedFiles[0]!;
+      console.log("File data received:", fileData);
 
-      // Refresh the page after a short delay
+      try {
+        console.log("Sending metadata to /api/save-image-metadata", {
+          fileUrl: fileData.url,
+          fileName: fileData.name,
+          caption: caption,
+        });
+        const response = await fetch("/api/save-image-metadata", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            fileUrl: fileData.url,
+            fileName: fileData.name,
+            caption: caption,
+          }),
+        });
+        console.log("Metadata API response:", response);
+        if (!response.ok) {
+          const errorData = await response.json();
+          console.error("Failed to save image metadata:", errorData);
+          throw new Error("Failed to save image metadata");
+        }
+        const responseData = await response.json();
+        console.log("Metadata saved successfully:", responseData);
+      } catch (error) {
+        console.error("Error saving image metadata:", error);
+      }
+
+      // Instead of navigating back immediately, refresh the page
+      console.log("Upload process complete. Refreshing page.");
       setTimeout(() => {
         router.refresh();
-      }, 100); // 100ms delay
+      }, 200);
     },
     onUploadError: (error) => {
       console.error("Upload failed:", error);
@@ -27,15 +62,12 @@ export default function UploadModal() {
     },
   });
 
-  // Handle file selection and preview
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
       setFiles([file]);
-
-      // Create a preview URL for the image
-      const url = URL.createObjectURL(file);
-      setPreviewUrl(url);
+      setPreviewUrl(URL.createObjectURL(file));
+      console.log("File selected:", file);
     }
   };
 
@@ -44,9 +76,10 @@ export default function UploadModal() {
       alert("Please select a file to upload.");
       return;
     }
-
     try {
+      console.log("Starting upload for files:", files);
       await startUpload(files);
+      console.log("startUpload promise resolved");
     } catch (error) {
       console.error("Upload failed:", error);
       alert("Upload failed. Please try again.");
@@ -91,7 +124,7 @@ export default function UploadModal() {
           {/* Buttons */}
           <div className="flex gap-2 justify-end">
             <button
-              onClick={() => router.back()} // Close the modal
+              onClick={() => router.back()}
               className="rounded bg-red-500 px-4 py-2 text-white hover:bg-red-600"
               disabled={isUploading}
             >

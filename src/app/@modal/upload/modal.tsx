@@ -1,4 +1,5 @@
-// src/app/@modal/(.)upload/modal.tsx
+// src/app/@modal/(.)img\[id]/modal.tsx
+
 "use client";
 
 import { useRouter } from "next/navigation";
@@ -19,9 +20,9 @@ export function Modal({ children }: { children: React.ReactNode }) {
     router.back();
   }
 
-  // Check if modal-root exists
+  // Ensure there is a modal-root element in your HTML (e.g., in _document.tsx)
   const modalRoot = document.getElementById("modal-root");
-  if (!modalRoot) return null; // Return null if modal-root is not found
+  if (!modalRoot) return null;
 
   return createPortal(
     <dialog
@@ -31,6 +32,6 @@ export function Modal({ children }: { children: React.ReactNode }) {
     >
       {children}
     </dialog>,
-    modalRoot, // Use the modal-root element
+    modalRoot
   );
 }

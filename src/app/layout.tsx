@@ -1,4 +1,5 @@
 // src/app/layout.tsx
+
 import "~/styles/globals.css";
 import "@uploadthing/react/styles.css";
 import { GeistSans } from "geist/font/sans";
@@ -29,7 +30,7 @@ export default function RootLayout({
             <main className="overflow-y-scroll">{children}</main>
           </div>
           {modal}
-          <div id="modal-root"></div> {/* Modal root for portal */}
+          <div id="modal-root"></div>
         </body>
       </html>
     </ClerkProvider>
