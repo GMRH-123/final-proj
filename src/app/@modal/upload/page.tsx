@@ -1,11 +1,10 @@
-// src/app/@modal/upload/page.tsx
-
 "use client";
 
 import { useState } from "react";
 import { useUploadThing } from "~/utils/uploadthing";
 import { Modal } from "./modal";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export default function UploadModal() {
   const [caption, setCaption] = useState("");
@@ -14,21 +13,28 @@ export default function UploadModal() {
   const router = useRouter();
 
   const { startUpload, isUploading } = useUploadThing("imageUploader", {
+    onUploadBegin() {
+      toast.loading("Uploading...", { id: "upload-begin" });
+    },
     onClientUploadComplete: async (uploadedFiles) => {
-      console.log("onClientUploadComplete triggered");
+      toast.dismiss("upload-begin"); // Remove the loading toast
+
       if (!uploadedFiles || uploadedFiles.length === 0) {
         console.error("No uploaded file found.");
+        toast.error("Upload failed. No file received.");
         return;
       }
+
       const fileData = uploadedFiles[0]!;
       console.log("File data received:", fileData);
-  
+
       try {
         console.log("Sending metadata to /api/save-image-metadata", {
           fileUrl: fileData.url,
           fileName: fileData.name,
           caption: caption,
         });
+
         const response = await fetch("/api/save-image-metadata", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -38,31 +44,31 @@ export default function UploadModal() {
             caption: caption,
           }),
         });
-        console.log("Metadata API response:", response);
+
         if (!response.ok) {
           const errorData = await response.json();
           console.error("Failed to save image metadata:", errorData);
-          throw new Error("Failed to save image metadata");
+          toast.error("Failed to save image metadata.");
+          return;
         }
-        const responseData = await response.json();
-        console.log("Metadata saved successfully:", responseData);
+
+        console.log("Metadata saved successfully.");
+        toast.success(<span className="text-lg">Upload Complete!</span>);
       } catch (error) {
         console.error("Error saving image metadata:", error);
+        toast.error("An error occurred while saving metadata.");
       }
-  
-      // Navigate back to close the modal
-      console.log("Upload process complete. Closing modal.");
-      router.back(); // This will close the modal immediately
-  
-      //Wait a short time and refresh the page
+
+      // Close the modal and refresh the page
+      router.back();
       setTimeout(() => {
-        console.log("Refreshing page after modal close.");
         router.refresh();
       }, 100);
     },
     onUploadError: (error) => {
       console.error("Upload failed:", error);
-      alert("Upload failed. Please try again.");
+      toast.dismiss("upload-begin"); // Ensure the loading toast is removed
+      toast.error("Upload failed. Please try again.");
     },
   });
 
@@ -77,16 +83,17 @@ export default function UploadModal() {
 
   const handleUpload = async () => {
     if (files.length === 0) {
-      alert("Please select a file to upload.");
+      toast.error("Please select a file to upload.");
       return;
     }
+
     try {
       console.log("Starting upload for files:", files);
       await startUpload(files);
       console.log("startUpload promise resolved");
     } catch (error) {
       console.error("Upload failed:", error);
-      alert("Upload failed. Please try again.");
+      toast.error("Upload failed. Please try again.");
     }
   };
 

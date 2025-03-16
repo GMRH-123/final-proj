@@ -1,6 +1,6 @@
 // app/img\[id]/page.tsx
 
-import FullPageImageView from "~/app/components/full-image-page";
+import FullPageImageView from "~/app/fullimage-components/full-image-page";
 import { getImage } from "~/server/queries";
 
 export default async function PhotoModal({
