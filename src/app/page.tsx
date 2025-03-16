@@ -1,6 +1,6 @@
 // src/app/page.tsx
 
-import { SignedIn, SignedOut } from "@clerk/nextjs";
+import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
 import Link from "next/link";
 import { getMyImages } from "~/server/queries";
 import { Button } from "~/components/ui/button";
@@ -18,13 +18,11 @@ async function Images() {
   return (
     <div className="flex flex-col items-center gap-4 w-full max-w-2xl mx-auto">
       {images.map((image) => (
-        <Card key={image.id} className="w-full overflow-hidden transition-all duration-200 hover:shadow-lg border-b">
-          <div className="p-4 border-b">
-            <h3 className="font-medium text-gray-800 bg-gray-100 px-3 py-2 rounded-lg">
-              {image.caption ? image.caption : "No caption"}
-            </h3>
-          </div>
-          <Link href={`/img/${image.id}`} className="block w-full h-[400px] overflow-hidden bg-muted">
+        <Card key={image.id} className="w-full pt-4 overflow-hidden transition-all duration-200 hover:shadow-lg border-b">
+          <CardContent className="p-1 mt-2 italic text-gray-600 text-sm text-right">
+            {`Uploaded: ${timeAgo(new Date(image.createdAt))}`}
+          </CardContent>
+          <Link href={`/img/${image.id}`} className="block w-full h-[400px] overflow-hidden bg-muted pr-4 pl-4">
             <div className="relative h-full w-full">
             <img
                 src={image.url || "/placeholder.svg"}
@@ -33,15 +31,18 @@ async function Images() {
                   width: "100%",
                   height: "100%",
                   objectFit: "cover",
+                  borderRadius: "0.5rem"
                 }}
                 loading="lazy"
               />
             </div>
           </Link>
+          <div className="p-4 border-b">
+            <h3 className="font-medium text-gray-800 bg-gray-100 px-3 py-2 rounded-lg">
+              {image.caption ? image.caption : "No caption"}
+            </h3>
+          </div>
 
-          <CardContent className="p-4 mt-2 italic text-gray-600 text-sm">
-            {`Uploaded: ${timeAgo(new Date(image.createdAt))}`}
-          </CardContent>
         </Card>
       ))}
     </div>
@@ -65,18 +66,16 @@ export default async function HomePage() {
                   Upload, organize, and share your images in one secure place. Access your photos from anywhere,
                   anytime.
                 </p>
-                <div className="mt-8 flex flex-col sm:flex-row gap-3">
-                  <Link href="/signin">
-                    <Button size="lg" className="w-full sm:w-auto">
+                <div 
+                    className="mt-8 px-6 py-3 bg-gray-800 text-white font-semibold rounded-lg shadow-md hover:bg-gray-900 transition duration-300 cursor-pointer text-center"
+                  >
+                    <SignInButton mode="modal">
                       Sign In
-                    </Button>
-                  </Link>
-                  <Link href="/signup">
-                    <Button variant="outline" size="lg" className="w-full sm:w-auto">
-                      Create Account
-                    </Button>
-                  </Link>
-                </div>
+                    </SignInButton>
+                  </div>
+
+
+
               </div>
               <div className="md:w-1/2 mt-12 md:mt-0">
                 <div className="relative h-[400px] w-full overflow-hidden rounded-lg shadow-xl">
@@ -85,14 +84,14 @@ export default async function HomePage() {
                     <div className="space-y-2">
                       <div className="bg-white rounded-lg shadow-sm h-40 overflow-hidden">
                         <img
-                          src="/placeholder.svg?height=160&width=240"
+                          src="https://u4ocvzai6f.ufs.sh/f/5zX1RPP9E6ctEovAJ9GHAPpaqdrOBmLFz7NfCJEoeh0U8SIx"
                           alt="Gallery preview"
                           className="w-full h-full object-cover"
                         />
                       </div>
                       <div className="bg-white rounded-lg shadow-sm h-40 overflow-hidden">
                         <img
-                          src="/placeholder.svg?height=160&width=240"
+                          src="https://u4ocvzai6f.ufs.sh/f/5zX1RPP9E6ctQdV6Lc4NyPovsDzXGaeJpH3m8i60fY1tKbIU"
                           alt="Gallery preview"
                           className="w-full h-full object-cover"
                         />
@@ -101,14 +100,14 @@ export default async function HomePage() {
                     <div className="space-y-2 pt-6">
                       <div className="bg-white rounded-lg shadow-sm h-40 overflow-hidden">
                         <img
-                          src="/placeholder.svg?height=160&width=240"
+                          src="https://u4ocvzai6f.ufs.sh/f/5zX1RPP9E6ctzy2H1WXTtiKuWCAIsV3YNMrgHcdB0n64TeqP"
                           alt="Gallery preview"
                           className="w-full h-full object-cover"
                         />
                       </div>
                       <div className="bg-white rounded-lg shadow-sm h-40 overflow-hidden">
                         <img
-                          src="/placeholder.svg?height=160&width=240"
+                          src="https://u4ocvzai6f.ufs.sh/f/5zX1RPP9E6ctlRtjnRoVBiLunfsD5WS3mxReUQjZvwpXy0MK"
                           alt="Gallery preview"
                           className="w-full h-full object-cover"
                         />

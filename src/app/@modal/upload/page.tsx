@@ -104,58 +104,62 @@ export default function UploadModal() {
 
   return (
     <Modal>
-      <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-30 p-4">
-        <div className="flex flex-col gap-4 p-6 w-full max-w-md bg-white rounded-lg shadow-lg">
-          <h2 className="text-2xl font-bold text-center">Upload Image</h2>
+  <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-30 p-4">
+    <div className="relative flex flex-col gap-4 p-6 w-full max-w-md bg-white rounded-lg shadow-lg">
+      
+      {/* Close Button (X) */}
+      <button
+        onClick={() => router.back()}
+        className="absolute top-4 right-4 text-red-500 hover:text-red-700 transition"
+        disabled={isUploading}
+      >
+        ✖
+      </button>
 
-          {/* File Input */}
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleFileChange}
-            className="rounded border p-2"
-            disabled={isUploading}
+      <h2 className="text-2xl font-bold text-center">Upload Image</h2>
+
+      {/* File Input */}
+      <input
+        type="file"
+        accept="image/*"
+        onChange={handleFileChange}
+        className="rounded border p-2"
+        disabled={isUploading}
+      />
+
+      {/* Image Preview */}
+      {previewUrl && (
+        <div className="flex justify-center">
+          <img
+            src={previewUrl}
+            alt="Preview"
+            className="max-w-full h-48 object-contain rounded-lg"
           />
-
-          {/* Image Preview */}
-          {previewUrl && (
-            <div className="flex justify-center">
-              <img
-                src={previewUrl}
-                alt="Preview"
-                className="max-w-full h-48 object-contain rounded-lg"
-              />
-            </div>
-          )}
-
-          {/* Caption Input */}
-          <textarea
-            placeholder="Add a caption..."
-            value={caption}
-            onChange={(e) => setCaption(e.target.value)}
-            className="rounded border p-2 text-black"
-            disabled={isUploading}
-          />
-
-          {/* Buttons */}
-          <div className="flex gap-2 justify-end">
-            <button
-              onClick={() => router.back()}
-              className="rounded bg-red-500 px-4 py-2 text-white hover:bg-red-600"
-              disabled={isUploading}
-            >
-              Close
-            </button>
-            <button
-              onClick={handleUpload}
-              disabled={isUploading || files.length === 0}
-              className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 disabled:bg-gray-400"
-            >
-              {isUploading ? "Uploading..." : "Upload"}
-            </button>
-          </div>
         </div>
+      )}
+
+      {/* Caption Input */}
+      <textarea
+        placeholder="Add a caption..."
+        value={caption}
+        onChange={(e) => setCaption(e.target.value)}
+        className="rounded border p-2 text-black"
+        disabled={isUploading}
+      />
+
+      {/* Upload Button */}
+      <div className="flex justify-end">
+        <button
+          onClick={handleUpload}
+          disabled={isUploading || files.length === 0}
+          className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 disabled:bg-gray-400"
+        >
+          {isUploading ? "Uploading..." : "Upload"}
+        </button>
       </div>
-    </Modal>
+    </div>
+  </div>
+</Modal>
+
   );
 }
