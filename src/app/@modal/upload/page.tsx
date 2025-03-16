@@ -5,15 +5,20 @@ import { useUploadThing } from "~/utils/uploadthing";
 import { Modal } from "./modal";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { usePostHog } from "posthog-js/react";
 
 export default function UploadModal() {
   const [caption, setCaption] = useState("");
   const [files, setFiles] = useState<File[]>([]);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const router = useRouter();
+  const posthog = usePostHog();
 
   const { startUpload, isUploading } = useUploadThing("imageUploader", {
     onUploadBegin() {
+
+      posthog.capture("Upload Begin");
+
       toast.loading("Uploading...", { id: "upload-begin" });
     },
     onClientUploadComplete: async (uploadedFiles) => {
