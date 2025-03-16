@@ -26,12 +26,14 @@ async function Images() {
           </div>
           <Link href={`/img/${image.id}`} className="block w-full h-[400px] overflow-hidden bg-muted">
             <div className="relative h-full w-full">
-              <Image
+            <img
                 src={image.url || "/placeholder.svg"}
-                fill
-                sizes="100vw"
-                className="object-cover"
                 alt={image.name}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                }}
                 loading="lazy"
               />
             </div>

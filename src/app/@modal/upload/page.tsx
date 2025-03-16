@@ -22,7 +22,7 @@ export default function UploadModal() {
       }
       const fileData = uploadedFiles[0]!;
       console.log("File data received:", fileData);
-
+  
       try {
         console.log("Sending metadata to /api/save-image-metadata", {
           fileUrl: fileData.url,
@@ -49,12 +49,16 @@ export default function UploadModal() {
       } catch (error) {
         console.error("Error saving image metadata:", error);
       }
-
-      // Instead of navigating back immediately, refresh the page
-      console.log("Upload process complete. Refreshing page.");
+  
+      // Navigate back to close the modal
+      console.log("Upload process complete. Closing modal.");
+      router.back(); // This will close the modal immediately
+  
+      //Wait a short time and refresh the page
       setTimeout(() => {
+        console.log("Refreshing page after modal close.");
         router.refresh();
-      }, 200);
+      }, 100);
     },
     onUploadError: (error) => {
       console.error("Upload failed:", error);
