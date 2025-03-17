@@ -1,3 +1,5 @@
+// src/utils/uploadthing.ts
+
 import {
   generateReactHelpers,
     generateUploadButton,

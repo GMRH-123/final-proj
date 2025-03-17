@@ -1,3 +1,5 @@
+// src/server/queries.ts
+
 import "server-only";
 import { auth } from "@clerk/nextjs/server";
 import { db } from "./db";

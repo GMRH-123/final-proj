@@ -1,4 +1,4 @@
-// src/app/components/full-image-page.tsx
+// src/app/fullimage-components/full-image-page.tsx
 
 import { clerkClient } from "@clerk/nextjs/server";
 import Image from "next/image";

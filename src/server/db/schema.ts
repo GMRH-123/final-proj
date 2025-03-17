@@ -1,3 +1,5 @@
+// src/server/db/schema.ts
+
 // Example model schema from the Drizzle docs
 // https://orm.drizzle.team/docs/sql-schema-declaration
 
@@ -25,6 +27,8 @@ export const images = createTable(
     name: varchar("name", { length: 256 }).notNull(),
     url: varchar("url", { length: 1024 }).notNull(),
     userId: varchar("userId", { length: 256 }).notNull(),
+    userName: varchar("userName", {length: 1024}),
+    userImg: varchar("userImg", {length: 1024}),
     caption: varchar("caption", { length: 512 }),
     createdAt: timestamp("created_at", { withTimezone: true })
       .default(sql`CURRENT_TIMESTAMP`)

@@ -1,3 +1,5 @@
+// src/app/@modal/upload/page.tsx
+
 "use client";
 
 import { useState } from "react";
@@ -58,7 +60,7 @@ export default function UploadModal() {
         }
 
         console.log("Metadata saved successfully.");
-        toast.success(<span className="text-lg">Upload Complete!</span>);
+        toast.success(<span className="">Upload Complete!</span>);
       } catch (error) {
         console.error("Error saving image metadata:", error);
         toast.error("An error occurred while saving metadata.");

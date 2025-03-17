@@ -1,3 +1,5 @@
+// src/app/components/WelcomeMessage.tsx
+
 "use client";
 
 import { useUser } from "@clerk/nextjs";
