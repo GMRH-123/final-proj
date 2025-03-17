@@ -8,6 +8,8 @@ import { Modal } from "./modal";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { usePostHog } from "posthog-js/react";
+import { X } from "lucide-react";
+import { Button } from "~/components/ui/button";
 
 export default function UploadModal() {
   const [caption, setCaption] = useState("");
@@ -21,7 +23,7 @@ export default function UploadModal() {
 
       posthog.capture("Upload Begin");
 
-      toast.loading("Uploading...", { id: "upload-begin" });
+      // toast.loading("Uploading...", { id: "upload-begin" });
     },
     onClientUploadComplete: async (uploadedFiles) => {
       toast.dismiss("upload-begin"); // Remove the loading toast
@@ -110,13 +112,13 @@ export default function UploadModal() {
     <div className="relative flex flex-col gap-4 p-6 w-full max-w-md bg-white rounded-lg shadow-lg">
       
       {/* Close Button (X) */}
-      <button
+      <Button
         onClick={() => router.back()}
-        className="absolute top-4 right-4 text-red-500 hover:text-red-700 transition"
+        className="absolute top-4 right-4"
         disabled={isUploading}
       >
-        ✖
-      </button>
+        <X className="h-5 w-5" />
+      </Button>
 
       <h2 className="text-2xl font-bold text-center">Upload Image</h2>
 
@@ -145,17 +147,58 @@ export default function UploadModal() {
         placeholder="Add a caption..."
         value={caption}
         onChange={(e) => setCaption(e.target.value)}
-        className="rounded border p-2 text-black"
+        className="w-full rounded-lg border border-gray-300 bg-white p-3 text-base text-gray-900 placeholder-gray-500 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 resize-none"
         disabled={isUploading}
+        rows={4} // Adjust the number of rows as needed
       />
 
       {/* Upload Button */}
-      <div className="flex justify-end">
+      <div className="flex justify-center"> {/* Center the button */}
         <button
           onClick={handleUpload}
           disabled={isUploading || files.length === 0}
-          className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 disabled:bg-gray-400"
+          className="flex items-center gap-2 rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 disabled:bg-gray-400 disabled:cursor-not-allowed"
         >
+          {/* Upload Icon or Spinner */}
+          {isUploading ? (
+            <svg
+              className="h-5 w-5 animate-spin"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                className="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                strokeWidth="4"
+              ></circle>
+              <path
+                className="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              ></path>
+            </svg>
+          ) : (
+            <svg
+              className="h-5 w-5"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"
+              />
+            </svg>
+          )}
+
+          {/* Button Text */}
           {isUploading ? "Uploading..." : "Upload"}
         </button>
       </div>
