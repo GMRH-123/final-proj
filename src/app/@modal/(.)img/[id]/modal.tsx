@@ -33,17 +33,16 @@ export function Modal({ children }: { children: React.ReactNode }) {
 
     function onDismiss() {
         if (dialogRef.current) {
-            // Add fade-out effect
-            dialogRef.current.classList.add("opacity-0")
-            setTimeout(() => {
-                // Explicitly close the dialog before navigating back
-                dialogRef.current?.close()
-                router.back()
-            }, 200)
-        } else {
-            router.back()
+          // Add fade-out effect
+          dialogRef.current.classList.add("opacity-0");
+          setTimeout(() => {
+            // Explicitly close the dialog
+            dialogRef.current?.close();
+            // Navigate back after the modal closes
+            router.back();
+          }, 200); // Adjust the delay as needed
         }
-    }
+      }
 
     function handleOverlayClick(e: React.MouseEvent) {
         if (e.target === overlayRef.current) {
@@ -60,26 +59,29 @@ export function Modal({ children }: { children: React.ReactNode }) {
             ref={dialogRef}
             className="m-0 h-screen w-screen bg-transparent p-0 backdrop:bg-black/60 backdrop:backdrop-blur-sm transition-opacity duration-200 ease-in-out"
             onClose={onDismiss}
-        >
+            >
             <div
                 ref={overlayRef}
                 className="flex h-full w-full items-center justify-center p-4 md:p-8"
                 onClick={handleOverlayClick}
             >
                 <div className="relative max-h-[90vh] w-full max-w-4xl rounded-lg bg-background shadow-lg">
-                    <Button
-                        variant="ghost"
-                        size="icon"
-                        className="absolute right-2 top-2 z-10 rounded-full bg-background/80 p-1 text-foreground backdrop-blur-sm hover:bg-background/90"
-                        onClick={onDismiss}
-                        aria-label="Close modal"
-                    >
-                        <X className="h-5 w-5" />
-                    </Button>
-                    {children}
+                <Button
+                    variant="ghost"
+                    size="icon"
+                    className="absolute right-2 top-2 z-10 rounded-full bg-background/80 p-1 text-foreground backdrop-blur-sm hover:bg-background/90"
+                    onClick={(e) => {
+                    e.preventDefault(); // Prevent default behavior
+                    onDismiss(); // Close the modal
+                    }}
+                    aria-label="Close modal"
+                >
+                    <X className="h-5 w-5" />
+                </Button>
+                {children}
                 </div>
             </div>
-        </dialog>,
+            </dialog>,
         modalRoot,
     )
 }
