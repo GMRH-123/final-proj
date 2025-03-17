@@ -1,7 +1,6 @@
 "use client";
 
 import { useUser } from "@clerk/nextjs";
-import Image from "next/image";
 
 export default function UserView() {
   const { user } = useUser();

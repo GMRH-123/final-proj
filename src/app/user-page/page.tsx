@@ -10,6 +10,8 @@ import { timeAgo } from "~/utils/helpers";
 import WelcomeMessage from "~/components/WelcomeMessage";
 import { getMyUserImages } from "~/server/queries";
 import BackButton from "~/components/BackButton";
+import UserView from "~/components/User-View";
+import UserImage from "~/components/UserImage";
 
 export const dynamic = "force-dynamic";
 
@@ -140,12 +142,19 @@ export default async function HomePage() {
         </div>
       </SignedOut>
       <SignedIn>
-        <div className="sticky top-0 z-10 bg-gray-50">
-          <div className="max-w-3xl mx-auto flex justify-between items-center py-4 px-4 shadow-lg w-full rounded-b-lg bg-gray-100">
-            <WelcomeMessage />
-              <BackButton />
+      <div className="top-0 z-10 bg-gray-50">
+        <div className="max-w-3xl mx-auto flex flex-col items-center py-6 px-4 shadow-lg w-full rounded-b-lg bg-gray-100">
+          {/* BackButton at the upper corner left */}
+          <div className="self-start">
+            <BackButton />
+          </div>
+
+          {/* UserView at the center with large impact */}
+          <div className="flex flex-col items-center gap-4 mt-4">
+            <UserImage />
           </div>
         </div>
+      </div>
         <div className="py-4 px-4">
           <Images />
         </div>
