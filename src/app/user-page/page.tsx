@@ -2,20 +2,19 @@
 
 import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
 import Link from "next/link";
-import { getMyImages } from "~/server/queries";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent } from "~/components/ui/card";
 import { PlusCircle } from "lucide-react";
 import Image from "next/image";
 import { timeAgo } from "~/utils/helpers";
 import WelcomeMessage from "~/components/WelcomeMessage";
-import UserView from "~/components/User-View";
-import UploadModal from "~/components/Upload-modal";
+import { getMyUserImages } from "~/server/queries";
+import BackButton from "~/components/BackButton";
 
 export const dynamic = "force-dynamic";
 
 async function Images() {
-  const images = await getMyImages();
+  const images = await getMyUserImages();
 
   return (
     <div className="flex flex-col items-center gap-4 w-full max-w-2xl mx-auto">
@@ -141,19 +140,12 @@ export default async function HomePage() {
         </div>
       </SignedOut>
       <SignedIn>
-      <div className="sticky top-0 z-10 bg-gray-50">
-        <div className="max-w-3xl mx-auto flex items-center py-4 px-4 shadow-lg w-full rounded-b-lg bg-gray-100">
-          {/* UserView and UploadModal */}
-          <div className="flex gap-2 w-full">
-            <Link href="/user-page">
-              <UserView />
-            </Link>
-            <div className="flex-grow">
-              <UploadModal /> {/* Use the updated UploadModal component */}
-            </div>
+        <div className="sticky top-0 z-10 bg-gray-50">
+          <div className="max-w-3xl mx-auto flex justify-between items-center py-4 px-4 shadow-lg w-full rounded-b-lg bg-gray-100">
+            <WelcomeMessage />
+              <BackButton />
           </div>
         </div>
-      </div>
         <div className="py-4 px-4">
           <Images />
         </div>

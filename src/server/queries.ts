@@ -10,12 +10,27 @@ export async function getMyImages(){
   // If you throw, the user will not be able to upload
   if (!user.userId) throw new Error("Unauthorized");
   
+   // Homepage where you can see the post of other users
   const images = await db.query.images.findMany({
-    where: (model) => eq(model.userId, user.userId),
+    // where: (model) => eq(model.userId, user.userId),
     orderBy: (model, { desc }) =>  desc(model.id),
   });
 
   return images;
+}
+
+export async function getMyUserImages(){
+  const user = await  auth();
+// If you throw, the user will not be able to upload
+if (!user.userId) throw new Error("Unauthorized");
+
+ // Homepage where you can see the post of other users
+const images = await db.query.images.findMany({
+  where: (model) => eq(model.userId, user.userId),
+  orderBy: (model, { desc }) =>  desc(model.id),
+});
+
+return images;
 }
 
 export async function getImage(id: number){
