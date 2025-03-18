@@ -37,7 +37,7 @@ export function Modal({ children }: { children: React.ReactNode }) {
           dialogRef.current.classList.add("opacity-0");
           setTimeout(() => {
             // Explicitly close the dialog
-            dialogRef.current?.close();
+            // dialogRef.current?.close();
             // Navigate back after the modal closes
             router.back();
           }, 200); // Adjust the delay as needed
