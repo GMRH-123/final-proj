@@ -7,6 +7,7 @@ import { Card, CardContent } from "~/components/ui/card";
 import { timeAgo } from "~/utils/helpers";
 import UserView from "~/components/User-View";
 import UploadModal from "~/components/Upload-modal";
+import { Button } from "~/components/ui/button";
 
 export const dynamic = "force-dynamic";
 
@@ -75,20 +76,22 @@ export default async function HomePage() {
             <div className="pt-16 pb-8 md:pt-24 md:pb-16 lg:pt-32 lg:pb-24 flex flex-col md:flex-row items-center">
               <div className="md:w-1/2 md:pr-8 lg:pr-12">
                 <h1 className="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl md:text-6xl">
-                  <span className="block">Store and share</span>
-                  <span className="block text-primary">your images easily</span>
+                  <span className="block">Connect and share</span>
+                  <span className="block text-primary">adorable pet moments</span>
                 </h1>
                 <p className="mt-3 max-w-md mx-auto text-base text-gray-500 sm:text-lg md:mt-5 md:text-xl md:mx-0">
-                  Upload, organize, and share your images in one secure place. Access your photos from anywhere,
-                  anytime.
+                  Upload, organize, and showcase your pet’s photos in one vibrant community. Engage with fellow pet lovers and access your favorite pet memories anytime, anywhere!
                 </p>
-                <div 
-                    className="mt-8 px-6 py-3 bg-gray-800 text-white font-semibold rounded-lg shadow-md hover:bg-gray-900 transition duration-300 cursor-pointer text-center"
-                  >
-                    <SignInButton mode="modal">
-                      Sign In
-                    </SignInButton>
+                <div className="flex mt-8">
+                  <div className="px-6 py-3 bg-gray-800 text-white font-semibold rounded-lg shadow-md hover:bg-gray-900 transition duration-300 cursor-pointer text-center inline-block">
+                    <SignInButton mode="modal">Sign In Now</SignInButton>
                   </div>
+                </div>
+
+
+
+
+
 
 
 
@@ -100,14 +103,14 @@ export default async function HomePage() {
                     <div className="space-y-2">
                       <div className="bg-white rounded-lg shadow-sm h-40 overflow-hidden">
                         <img
-                          src="https://u4ocvzai6f.ufs.sh/f/5zX1RPP9E6ctEovAJ9GHAPpaqdrOBmLFz7NfCJEoeh0U8SIx"
+                          src="https://u4ocvzai6f.ufs.sh/f/5zX1RPP9E6ctjuhjueDUf1A87GmTew0i4Rk2J6Zs3nBNKYhM"
                           alt="Gallery preview"
                           className="w-full h-full object-cover"
                         />
                       </div>
                       <div className="bg-white rounded-lg shadow-sm h-40 overflow-hidden">
                         <img
-                          src="https://u4ocvzai6f.ufs.sh/f/5zX1RPP9E6ctQdV6Lc4NyPovsDzXGaeJpH3m8i60fY1tKbIU"
+                          src="https://u4ocvzai6f.ufs.sh/f/5zX1RPP9E6ct6NxpRTWlKUa0Y2qsZu7exD5iSHTyQBroWIRL"
                           alt="Gallery preview"
                           className="w-full h-full object-cover"
                         />
@@ -116,14 +119,14 @@ export default async function HomePage() {
                     <div className="space-y-2 pt-6">
                       <div className="bg-white rounded-lg shadow-sm h-40 overflow-hidden">
                         <img
-                          src="https://u4ocvzai6f.ufs.sh/f/5zX1RPP9E6ctzy2H1WXTtiKuWCAIsV3YNMrgHcdB0n64TeqP"
+                          src="https://u4ocvzai6f.ufs.sh/f/5zX1RPP9E6ctd9s2nEfjEVUat0IgnQ8HRy6u3dFxw5qSploO"
                           alt="Gallery preview"
                           className="w-full h-full object-cover"
                         />
                       </div>
                       <div className="bg-white rounded-lg shadow-sm h-40 overflow-hidden">
                         <img
-                          src="https://u4ocvzai6f.ufs.sh/f/5zX1RPP9E6ctlRtjnRoVBiLunfsD5WS3mxReUQjZvwpXy0MK"
+                          src="https://u4ocvzai6f.ufs.sh/f/5zX1RPP9E6ct78XwCokowBHFtpZjP4lOJ8LqcIrae9i7A5yk"
                           alt="Gallery preview"
                           className="w-full h-full object-cover"
                         />
