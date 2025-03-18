@@ -3,12 +3,8 @@
 import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
 import Link from "next/link";
 import { getMyImages } from "~/server/queries";
-import { Button } from "~/components/ui/button";
 import { Card, CardContent } from "~/components/ui/card";
-import { PlusCircle } from "lucide-react";
-import Image from "next/image";
 import { timeAgo } from "~/utils/helpers";
-import WelcomeMessage from "~/components/WelcomeMessage";
 import UserView from "~/components/User-View";
 import UploadModal from "~/components/Upload-modal";
 
