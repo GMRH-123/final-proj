@@ -29,7 +29,7 @@ async function Images() {
               {/* Username and Upload Time */}
               <div className="flex justify-between items-center mt-1">
                 {/* Username */}
-                <p className="font-bold text-gray-800 bg-gray-100 px-1 py-2 rounded-lg">
+                <p className="font-bold text-gray-800 px-1 py-2 rounded-lg">
                   {image.userName}
                 </p>
                 {/* Upload Time */}
@@ -39,7 +39,7 @@ async function Images() {
               </div>
               {/* Image Caption */}
               <div className="mt-1 mb-1 mr-4 border-t border-gray-200">
-                <h3 className="font-medium text-gray-800 bg-gray-100 px-1 py-1 rounded-lg">
+                <h3 className="font-medium text-gray-800 px-1 py-1 rounded-lg">
                   {image.caption ? image.caption : "No caption"}
                 </h3>
               </div>

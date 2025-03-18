@@ -22,7 +22,7 @@ async function Images() {
           <div className="flex pl-5 ml-1">
             {/* Display the user's avatar (currently using a placeholder image) */}
             <img
-              className="mt-1 mr-4 h-12 w-12 rounded-full object-cover shadow border border-gray-300"
+              className="mt-4 mr-4 h-12 w-12 rounded-full object-cover shadow border border-gray-300"
               src={image.userImg || "/path/to/fallback-image.jpg"}  // Use a fallback image
               alt="avatar"
             />
