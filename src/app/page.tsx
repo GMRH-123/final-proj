@@ -21,7 +21,7 @@ async function Images() {
           <div className="flex pl-5 ml-1">
             {/* Display the user's avatar (currently using a placeholder image) */}
             <img
-              className="mt-1 mr-4 h-12 w-12 rounded-full object-cover shadow border border-gray-300"
+              className="mt-4 mr-4 h-12 w-12 rounded-full object-cover shadow border border-gray-300"
               src={image.userImg || "/path/to/fallback-image.jpg"}  // Use a fallback image
               alt="avatar"
             />
@@ -33,7 +33,7 @@ async function Images() {
                   {image.userName}
                 </p>
                 {/* Upload Time */}
-                <p className="pr-5 mr-5 italic text-gray-600 text-sm">
+                <p className="ml-5 mr-5 italic text-gray-600 text-sm">
                   {`Uploaded: ${timeAgo(new Date(image.createdAt))}`}
                 </p>
               </div>
