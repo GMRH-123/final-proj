@@ -7,7 +7,6 @@ import { Card, CardContent } from "~/components/ui/card";
 import { timeAgo } from "~/utils/helpers";
 import UserView from "~/components/User-View";
 import UploadModal from "~/components/Upload-modal";
-import { Button } from "~/components/ui/button";
 
 export const dynamic = "force-dynamic";
 
@@ -18,16 +17,16 @@ async function Images() {
     <div className="flex flex-col items-center gap-4 w-full max-w-2xl mx-auto">
       {images.map((image) => (
         <Card key={image.id} className="w-full pt-4 overflow-hidden transition-all duration-200 hover:shadow-lg border-b">
-          <div className="flex pl-5 ml-1">
+          <div className="flex pl-5 ml-1 mt-1">
             {/* Display the user's avatar (currently using a placeholder image) */}
             <img
-              className="mt-4 mr-4 h-12 w-12 rounded-full object-cover shadow border border-gray-300"
+              className="mt-1 mr-4 h-12 w-12 rounded-full object-cover shadow border border-gray-300"
               src={image.userImg || "/path/to/fallback-image.jpg"}  // Use a fallback image
               alt="avatar"
             />
-            <div className="w-full mt-1">
+            <div className="w-full">
               {/* Username and Upload Time */}
-              <div className="flex justify-between items-center mt-1">
+              <div className="flex justify-between items-center">
                 {/* Username */}
                 <p className="font-bold text-gray-800 px-1 py-2 rounded-lg">
                   {image.userName}
@@ -40,12 +39,12 @@ async function Images() {
               {/* Image Caption */}
               <div className="mt-1 mb-1 mr-4 border-t border-gray-200">
                 <h3 className="font-medium text-gray-800 px-1 py-1 rounded-lg">
-                  {image.caption ? image.caption : "No caption"}
+                  {image.caption ? image.caption : " "}
                 </h3>
               </div>
             </div>
           </div>
-          <Link href={`/img/${image.id}`} className="block w-full h-[400px] overflow-hidden bg-muted pr-4 pl-4 pb-4">
+          <Link href={`/img/${image.id}`} className="mt-1 block w-full h-[400px] overflow-hidden bg-muted pr-4 pl-4 pb-4">
             <div className="relative h-full w-full">
             <img
                 src={image.url || "/placeholder.svg"}
